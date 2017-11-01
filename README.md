@@ -6,7 +6,7 @@ Go to [http://devwiki.singlehop.net/index.php?title=Base_Projects SingleHop Dev 
 
 This project is based on the Symfony 3.3 with bundles pre chosen to create a REST application.
 
-Used bundles: prooph, Nelmio ApiDoc, FosElastica and RabbitMQ.
+Used bundles: prooph, Nelmio ApiDoc, FosREST, FosElastica and RabbitMQ.
 
 Execute bin/console server:start to start the current demo application.
 
@@ -38,6 +38,7 @@ GRANT ALL PRIVILEGES ON SCHEMA {PROJECT_DB_NAME} TO {PROJECT_DB_USERNAME};
 ```
 Event stream
 ```
+php bin/console doctrine:migrations:migrate
 php bin/console event_stream:table:create {STREAM_NAME}
 ```
 
@@ -55,6 +56,9 @@ Environment variables
     SYMFONY__DATABASE__USER=
     SYMFONY__DATABASE__PASSWORD=
     SYMFONY__DATABASE__VERSION=
+    SYMFONY__DATABASE__SSL_MODE=
+    SYMFONY__DATABASE__SSL_ROOT_CERT=
+    SYMFONY__DATABASE__APPLICATION_NAME=
     SYMFONY__ELASTICSEARCH__HOST=
     SYMFONY__LOCALE=en
     SYMFONY__PROJECT_URL=

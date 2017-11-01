@@ -30,8 +30,8 @@ class Version20171023130430 extends AbstractMigration implements ContainerAwareI
             $this->connection->getDatabasePlatform()->getName() !== 'postgresql',
             'Migration can only be executed safely on \'postgresql\'.'
         );
-        $schema = $this->container->getParameter('database.schema');
-        $this->addSql("CREATE TABLE $schema.event_streams (
+        $schemaName = $this->container->getParameter('database.schema');
+        $this->addSql("CREATE TABLE $schemaName.event_streams (
                                   no BIGSERIAL,
                                   real_stream_name VARCHAR(150) NOT NULL,
                                   stream_name CHAR(52) NOT NULL,
@@ -40,8 +40,8 @@ class Version20171023130430 extends AbstractMigration implements ContainerAwareI
                                   PRIMARY KEY (no),
                                   UNIQUE (stream_name)
                           );");
-        $this->addSql("CREATE INDEX on $schema.event_streams (category);");
-        $this->addSql("CREATE TABLE $schema.projections (
+        $this->addSql("CREATE INDEX on $schemaName.event_streams (category);");
+        $this->addSql("CREATE TABLE $schemaName.projections (
                                   no BIGSERIAL,
                                   name VARCHAR(150) NOT NULL,
                                   position JSONB,
@@ -58,13 +58,13 @@ class Version20171023130430 extends AbstractMigration implements ContainerAwareI
      */
     public function down(Schema $schema)
     {
-        $schema = $this->container->getParameter('database.schema');
+        $schemaName = $this->container->getParameter('database.schema');
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf(
             $this->connection->getDatabasePlatform()->getName() !== 'postgresql',
             'Migration can only be executed safely on \'postgresql\'.'
         );
-        $this->addSql("DROP TABLE $schema.event_streams");
-        $this->addSql("DROP TABLE $schema.projections");
+        $this->addSql("DROP TABLE $schemaName.event_streams");
+        $this->addSql("DROP TABLE $schemaName.projections");
     }
 }
