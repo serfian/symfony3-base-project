@@ -1,0 +1,19 @@
+fos_elastica:
+    serializer:
+        callback_class: FOS\ElasticaBundle\Serializer\Callback
+        serializer: jms_serializer
+    clients:
+        default: { host: '%elasticsearch.hostname%', port: '%elasticsearch.port%' }
+    indexes:
+        base:
+            finder: ~
+            types:
+                example:
+                    properties:
+                        exampleId:
+                            type: string
+                            index: not_analyzed
+                    serializer:
+                        serialize_null: true
+                    persistence:
+                        identifier: exampleId

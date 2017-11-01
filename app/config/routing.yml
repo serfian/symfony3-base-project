@@ -1,0 +1,7 @@
+singlehop.ipam.homepage:
+    path:     /
+    defaults: { _controller: singlehop.ipam.controller.default:indexAction }
+
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api/doc

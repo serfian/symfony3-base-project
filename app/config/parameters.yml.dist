@@ -1,0 +1,36 @@
+parameters:
+    # Application
+    app.name: Base symfony3 project
+    current.api.version: 1
+    locale: en
+    secret: S67F3668876ID6F357E6R3ZF7D9873X34C3B6T87Q683AD7E
+
+    # Database
+    database.driver: pdo_pgsql
+    database.host: 127.0.0.1
+    database.port: 5432
+    database.name: base
+    database.user: root
+    database.password: ~
+    database.version: 9.4.7
+    database.schema: base
+
+    # RabbitMQ
+    rabbitmq.host:  127.0.0.1
+    rabbitmq.port:  5672
+    rabbitmq.user:  ~
+    rabbitmq.password: ~
+    rabbitmq.vhost: dev
+    rabbitmq.exchange.event: ~
+    rabbitmq.queue.event: ~
+
+    # Rbac
+    rbac.host: rbac.dev
+    rbac.protocol: https
+    rbac.connect.path: v1/connect
+    service.client_id: ~
+    service.client_secret: ~
+
+    # Other
+    elasticsearch.hostname: 127.0.0.1
+    elasticsearch.port: 9200

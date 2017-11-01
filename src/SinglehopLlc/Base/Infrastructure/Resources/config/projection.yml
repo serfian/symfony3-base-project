@@ -1,0 +1,6 @@
+services:
+    singlehop.base.projection.example_projector:
+        class: SinglehopLlc\Base\Infrastructure\Projection\Example\ExampleProjector
+        arguments:
+            - '@singlehop.base.elastica.repository.example'
+            - '@example_collection'

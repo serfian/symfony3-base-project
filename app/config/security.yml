@@ -1,0 +1,24 @@
+security:
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+
+    role_hierarchy:
+        ROLE_ADMIN:       [ROLE_USER_MOBILE]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN]
+        ROLE_USER_MOBILE: ROLE_USER
+
+    providers:
+        token_user_provider:
+            id: rbac_connect.token_user_provider
+
+    firewalls:
+        secured_area:
+            pattern: ^/v1
+            stateless: true
+            simple_preauth:
+                authenticator: rbac_connect.token_authenticator
+            provider: token_user_provider
+
+    access_control:
+        - { path: ^/v1/client, allow_if: "has_role('ROLE_CLIENT')", methods: [GET, POST] }
+        - { path: ^/v1, allow_if: "has_role('ROLE_USER')" }

@@ -1,0 +1,123 @@
+{
+    "name": "singlehopllc/base",
+    "description": "The Singlehop Base Symfony3 Service",
+    "minimum-stability": "stable",
+    "license": "proprietary",
+    "type": "project",
+    "repositories": [
+        {
+            "url": "git@github.com:singlehopllc/rbac-connect-bundle.git",
+            "type": "vcs"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:singlehopllc/event-store-symfony-bundle.git"
+        }
+    ],
+    "require": {
+        "php": "~7.1",
+        "doctrine/doctrine-bundle": "^1.6",
+        "doctrine/doctrine-migrations-bundle": "^1.0",
+        "doctrine/orm": "^2.5",
+        "elasticsearch/elasticsearch": "^5.3",
+        "friendsofsymfony/elastica-bundle": "^4.0",
+        "friendsofsymfony/rest-bundle": "^2.2",
+        "guzzlehttp/guzzle": "^6.3",
+        "incenteev/composer-parameter-handler": "^2.0",
+        "jms/serializer-bundle": "~2.0",
+        "nelmio/api-doc-bundle": "~2.13",
+        "prooph/event-sourcing": "^5.2",
+        "prooph/event-store-bus-bridge": "^3.0",
+        "prooph/event-store-symfony-bundle": "dev-master",
+        "prooph/pdo-event-store": "^1.5",
+        "prooph/service-bus-symfony-bundle": "1.0.x-dev",
+        "ramsey/uuid": "^3.7",
+        "sensio/distribution-bundle": "^5.0.19",
+        "sensio/framework-extra-bundle": "^3.0.2",
+        "singlehopllc/rbac-connect-bundle": "^1.2",
+        "symfony/monolog-bundle": "^3.1.0",
+        "symfony/polyfill-apcu": "^1.0",
+        "symfony/symfony": "3.3.*",
+        "php-amqplib/rabbitmq-bundle": "^1.13",
+        "twig/twig": "^1.0||^2.0"
+    },
+    "require-dev": {
+        "sensio/generator-bundle": "^3.0",
+        "symfony/phpunit-bridge": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "SinglehopLlc\\Base\\": "src/SinglehopLlc/Base"
+        },
+        "classmap": [
+            "app/AppKernel.php",
+            "app/AppCache.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        },
+        "files": [
+            "vendor/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php"
+        ]
+    },
+    "scripts": {
+        "symfony-scripts": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+        ],
+        "post-install-cmd": [
+            "@symfony-scripts"
+        ],
+        "post-update-cmd": [
+            "@symfony-scripts"
+        ]
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "symfony-app-dir": "app",
+        "symfony-bin-dir": "bin",
+        "symfony-var-dir": "var",
+        "symfony-web-dir": "web",
+        "symfony-tests-dir": "tests",
+        "symfony-assets-install": "relative",
+        "incenteev-parameters": {
+            "file": "app/config/parameters.yml",
+            "env-map": {
+                "app.name": "SYMFONY__APP__NAME",
+                "current.api.version": "SYMFONY__CURRENT__API__VERSION",
+                "database.host": "SYMFONY__DATABASE__HOST",
+                "database.driver": "SYMFONY__DATABASE__DRIVER",
+                "database.port": "SYMFONY__DATABASE__PORT",
+                "database.name": "SYMFONY__DATABASE__NAME",
+                "database.user": "SYMFONY__DATABASE__USER",
+                "database.password": "SYMFONY__DATABASE__PASSWORD",
+                "database.version": "SYMFONY__DATABASE__VERSION",
+                "elasticsearch.host": "SYMFONY__ELASTICSEARCH__HOST",
+                "locale": "SYMFONY__LOCALE",
+                "project_url": "SYMFONY__PROJECT_URL",
+                "rabbitmq.host": "SYMFONY__RABBITMQ__HOST",
+                "rabbitmq.port": "SYMFONY__RABBITMQ__PORT",
+                "rabbitmq.user": "SYMFONY__RABBITMQ__USER",
+                "rabbitmq.password": "SYMFONY__RABBITMQ__PASSWORD",
+                "rabbitmq.vhost": "SYMFONY__RABBITMQ__VHOST",
+                "rabbitmq.exchange.event": "SYMFONY__RABBITMQ__EXCHANGE__EVENT",
+                "rabbitmq.queue.event": "SYMFONY__RABBITMQ__QUEUE__EVENT",
+                "rbac.host": "SYMFONY__RBAC__HOST",
+                "rbac.protocol": "SYMFONY__RBAC__PROTOCOL",
+                "rbac.path": "SYMFONY__RBAC__CONNECT__PATH",
+                "service.client_id": "SYMFONY__SERVICE__CLIENT_ID",
+                "service.client_secret": "SYMFONY__SERVICE__CLIENT_SECRET",
+                "secret": "SYMFONY__SECRET"
+            }
+        },
+        "branch-alias": null
+    }
+}

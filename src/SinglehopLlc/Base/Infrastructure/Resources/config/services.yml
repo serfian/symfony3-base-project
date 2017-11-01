@@ -1,0 +1,52 @@
+services:
+    doctrine.pdo.connection:
+        class: PDO
+        factory: ['@database_connection', getWrappedConnection]
+
+    singlehop.base.elastica.repository.example:
+        class: SinglehopLlc\Base\Infrastructure\Repository\Example\ElasticSearch\ElasticSearchExampleRepository
+        arguments:
+            - '@fos_elastica.object_persister.base.example'
+            - '@fos_elastica.finder.base'
+
+    prooph.pdo_event_store:
+        class: Prooph\EventStore\Pdo\PostgresEventStore
+        arguments:
+            - '@prooph_event_store.message_factory'
+            - '@doctrine.pdo.connection'
+            - '@singlehop.base.event_store.postgres_single_stream_strategy'
+            - 10000
+            -  'base.event_streams'
+
+    prooph_event_store.postgres_single_stream_strategy:
+        class: Prooph\EventStore\Pdo\PersistenceStrategy\PostgresSingleStreamStrategy
+
+    prooph_event_sourcing.aggregate_translator:
+        class: 'Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator'
+
+    prooph_event_store_bus_bridge.transaction_manager:
+        class: Prooph\EventStoreBusBridge\TransactionManager
+        public: true
+        arguments:
+            - '@prooph_event_store.example_store'
+        tags:
+            - { name: prooph_service_bus.example_command_bus.plugin }
+
+    prooph_event_store_bus_bridge.example_event_publisher:
+        class: Prooph\EventStoreBusBridge\EventPublisher
+        public: true
+        arguments:
+            - '@prooph_service_bus.example_event_bus'
+        tags:
+            - { name: 'prooph_event_store.example_store.plugin' }
+
+    prooph.postgres_projection_manager:
+        class: Prooph\EventStore\Pdo\Projection\PostgresProjectionManager
+        arguments:
+            - '@prooph_event_store.example_store'
+            - '@doctrine.pdo.connection'
+
+    singlehop.base.event_store.postgres_single_stream_strategy:
+        class: SinglehopLlc\Base\Infrastructure\EventStore\Pdo\PersistenceStrategy\PostgresSingleStreamStrategy
+        arguments:
+            - '%database.schema%'

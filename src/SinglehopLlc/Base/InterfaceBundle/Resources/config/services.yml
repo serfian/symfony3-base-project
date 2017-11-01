@@ -1,0 +1,19 @@
+services:
+    singlehop.base.create_example_handler:
+        class: SinglehopLlc\Base\Domain\Model\Example\Handler\CreateExampleHandler
+        arguments:
+            - '@example_collection'
+
+    # Controllers
+    singlehop.base.controller.default:
+        class: SinglehopLlc\Base\InterfaceBundle\Controller\DefaultController
+        calls:
+            - [setContainer, ['@service_container']]
+
+    # Commands
+    singlehop.base.command.create_event_stream:
+        class: SinglehopLlc\Base\InterfaceBundle\Command\EventSourcingTableCreateCommand
+        calls:
+            - [setContainer, ['@service_container']]
+        tags:
+            - { name: console.command }

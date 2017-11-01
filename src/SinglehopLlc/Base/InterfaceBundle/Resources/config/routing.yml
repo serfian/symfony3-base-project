@@ -1,0 +1,4 @@
+singlehop.base.example.add:
+    path:     /example/add
+    methods: [POST]
+    defaults: { _controller: singlehop.base.controller.example:addAction }
