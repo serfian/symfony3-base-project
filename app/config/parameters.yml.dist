@@ -14,6 +14,9 @@ parameters:
     database.password: ~
     database.version: 9.4.7
     database.schema: base
+    database.ssl_mode: require
+    database.ssl_root_cert: root_cert_file_name
+    database.application_name: base
 
     # RabbitMQ
     rabbitmq.host:  127.0.0.1
